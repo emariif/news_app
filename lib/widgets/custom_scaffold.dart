@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/common/navigation.dart';
 
 class CustomScaffold extends StatelessWidget {
   final Widget body;
@@ -29,10 +32,12 @@ class CustomScaffold extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
+            icon: defaultTargetPlatform == TargetPlatform.iOS
+              ? const Icon(CupertinoIcons.back)
+              : const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              Navigation.back();
             },
-            icon: const Icon(Icons.arrow_back),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
