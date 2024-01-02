@@ -43,7 +43,7 @@ class _NewsListPageState extends State<NewsListPage> {
 
   final List<Widget> _listWidget = [
     ChangeNotifierProvider<NewsProvider>(
-      create: (context) => NewsProvider(apiService: ApiService()),
+      create: (_) => NewsProvider(apiService: ApiService()),
       child: const ArticleListPage(),
     ),
     const SettingsPage(),
