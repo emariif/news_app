@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/common/styles.dart';
 import 'package:news_app/ui/article_detail_page.dart';
 import 'package:news_app/ui/article_list_page.dart';
+import 'package:news_app/ui/bookmarks_page.dart';
 import 'package:news_app/ui/settings_page.dart';
 import 'package:news_app/utils/notification_helper.dart';
 import 'package:news_app/widgets/platform_widget.dart';
@@ -37,6 +38,12 @@ class _NewsListPageState extends State<NewsListPage> {
       label: 'Headline',
     ),
     BottomNavigationBarItem(
+      icon: Icon(Platform.isIOS
+          ? CupertinoIcons.bookmark
+          : Icons.collections_bookmark),
+      label: BookmarksPage.bookmarksTitle
+    ),
+    BottomNavigationBarItem(
       icon: Icon(Platform.isIOS ? CupertinoIcons.settings : Icons.settings),
       label: 'Setting',
     ),
@@ -44,6 +51,7 @@ class _NewsListPageState extends State<NewsListPage> {
 
   final List<Widget> _listWidget = [
     const ArticleListPage(),
+    const BookmarksPage(),
     const SettingsPage(),
   ];
 

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/common/styles.dart';
 import 'package:news_app/provider/preferences_provider.dart';
 import 'package:news_app/provider/scheduling_provider.dart';
 import 'package:news_app/widgets/custom_dialog.dart';
@@ -22,6 +23,7 @@ class SettingsPage extends StatelessWidget {
                 trailing: Switch.adaptive(
                   value: provider.isDarkTheme,
                   onChanged: (value) => provider.enableDarkTheme(value),
+                  activeColor: secondaryColor,
                 ),
               ),
             ),
@@ -32,6 +34,7 @@ class SettingsPage extends StatelessWidget {
                   builder: (context, scheduled, _) {
                     return Switch.adaptive(
                       value: provider.isDailyNewsActive,
+                      activeColor: secondaryColor,
                       onChanged: (value) async {
                         if (Platform.isIOS) {
                           customDialog(context);
