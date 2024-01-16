@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:news_app/common/navigation.dart';
@@ -33,7 +34,7 @@ class NotificationHelper {
     );
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: (NotificationResponse details) {
+        onDidReceiveNotificationResponse: (NotificationResponse details) async {
       final payload = details.payload;
       if (payload != null) {
         print('notification payload: ' + payload);
@@ -65,18 +66,20 @@ class NotificationHelper {
     );
 
     var titleNotification = "<b>Headline News</b>";
-    var titleNews = articles.articles[0].title;
+
+    var randomIndex = Random().nextInt(articles.articles.length);
+    var randomNews = articles.articles[randomIndex - 1];
+    var titleNews = randomNews.title;
 
     await flutterLocalNotificationsPlugin.show(
         0, titleNotification, titleNews, platformChannelSpecifics,
-        payload: jsonEncode(articles.toJson()));
+        payload: jsonEncode(randomNews.toJson()));
   }
 
   void configureSelectNotificationSubject(String route) {
-    selectNotificationSubject.stream.listen((String payload) async { 
-      var data = ArticlesResult.fromJson(json.decode(payload));
-      var article = data.articles[0];
-      Navigation.intentWithData(route, article);
+    selectNotificationSubject.stream.listen((String payload) async {
+      var data = Article.fromJson(json.decode(payload));
+      Navigation.intentWithData(route, data);
     });
   }
 }
